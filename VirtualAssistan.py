@@ -7,7 +7,6 @@ Created on Thu Feb 17 07:41:55 2022
 
 #SPEECH RECOGNITION
 import speech_recognition as sr
-import os
 import re
 import webbrowser
 import datetime
@@ -29,17 +28,17 @@ def myCommand():
     r = sr.Recognizer()
     
     with sr.Microphone() as source:
-        print('Siap....')
+        print('Mendengarkan....')
         r.pause_threshold = 1
         r.adjust_for_ambient_noise(source, duration=1)
         audio = r.listen(source)
         
     try:
         command = r.recognize_google(audio).lower()
-        print('Hilmy : ' + command + '\n')
+        print('Tuan : ' + command + '\n')
         
     except sr.UnknownValueError:
-        print('Hilmy: Tidak bisa didengar')
+        print('Suara Tuan tidak bisa didengar')
         command = myCommand();
         
     return command
@@ -48,7 +47,7 @@ def assistant(command):
     "if statement for executing commands"
     
     if 'hello' in command:
-        print('Bejo: Hello Hilmy, Apa yang bisa aku bantu?')
+        print('Asisten Virtual: Halo Tuan, Apa yang bisa aku bantu?')
     elif 'open google' in command:
         reg_ex = re.search('google (.*)', command)
         url = 'https://www.google.com/'
@@ -57,16 +56,8 @@ def assistant(command):
             url = url + 'r/' + subreddit
         webbrowser.open(url)
         print('Done!')
-    elif 'where is this' in command:
-        reg_ex = re.search('google (.*)', command)
-        url = 'https://www.google.com/'
-        if reg_ex:
-            subreddit = reg_ex.group(1)
-            url = url + 'r/' + subreddit
-        webbrowser.open(url)
-        print('Done!')
     elif 'thank you' in command:
-          print('Bye!')
+          print('Selamat Tinggal!')
           exit()
           
 while True:
